@@ -27,12 +27,12 @@ class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    Employee one(@PathVariable Long id) throws EmployeeNotFoundException {
+    Employee getEmployee(@PathVariable Long id) throws EmployeeNotFoundException {
         return employeeManager.getEmployee(id);
     }
 
     @PutMapping("/{id}")
-    Employee replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
+    Employee replaceOrCreateEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
         return employeeManager.replaceOrCreateEmployee(id, newEmployee);
     }
 

@@ -15,7 +15,6 @@ public class EmployeeManager {
 
     public List<Employee> getAll() {
         return employeeRepository.findAll();
-
     }
 
     public Employee create(Employee employee) {
@@ -33,10 +32,7 @@ public class EmployeeManager {
                     foundEmployee.setRole(employee.getRole());
                     return employeeRepository.save(foundEmployee);
                 })
-                .orElseGet(() -> {
-                    employee.setId(id);
-                    return employeeRepository.save(employee);
-                });
+                .orElseGet(() -> employeeRepository.save(employee));
     }
 
     public void removeEmployee(Long id) {
