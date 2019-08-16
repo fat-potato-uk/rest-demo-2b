@@ -13,7 +13,7 @@ DELETE /employees/{id} -> Deletes the employee with ID
 
 When writing the controller try to move any "business logic" code into its own bean (I tend to use
 the pattern `XManager` for lack of imagination). This might be a little contrived for this example, 
-but in general it helps testing (and the following section).
+but in general it helps testing (and the following challenges).
 
 For example:
  
@@ -48,10 +48,11 @@ public class Employee {
 ``` 
 
 The addition of a `@RequiredArgsConstructor` is because of the need for a `@NoArgsConstructor`. `@Data` includes
-the `@RequiredArgsConstructor`, but the way Spring JPA initialises entities means we need to include an empty
-constructor too. In doing so, this negates the `@RequiredArgsConstructor` and the `final` behaviour on the 
-fields. This has been worked around with the `@NonNull` annotation that will give us some security on undesirable
-behaviours.
+the `@RequiredArgsConstructor` by default, but the way Spring JPA initialises entities means we need to include an empty
+constructor too. By adding `@NoArgsConstructor`, this negates automatic inculusion of the `@RequiredArgsConstructor`
+as well as preventing the `final` behaviour on the fields. This has been worked around with the `@NonNull` annotation
+that will give us some security on undesirable behaviours whilst also triggering `@RequiredArgsConstructor` to generate
+the same constructor as before.
 
 There is also a point around the `@GeneratedValue`. When saving an entity, any value in this annotated field
 will be overridden. Therefore, for the `PUT` endpoint, do not expect new entities created with a specified `Id`
@@ -72,6 +73,9 @@ or
 
 employeeRepository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
 ```
+Where we can provide a lambda function to `map` to the result if it is present, otherwise, return an object of the 
+specified type in the `Optional<T>` through the `orElseGet` call.
+
 
 * Advisors can provide a means of neatly handling exceptions thrown out of controllers. Such and example may 
 look like:
