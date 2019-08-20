@@ -17,7 +17,7 @@ but in general it helps testing (and the following challenges).
 
 For example:
  
-```
+```java
 @Autowired
 private EmployeeManager employeeManager;
 
@@ -31,7 +31,7 @@ For this challenge there will be less of a walk through, more of an independent 
 pointers however. Firstly, a gotcha with regard to the previously created `Employee` entity. It will now
 need to resemble something more like this:
 
-```
+```java
 @Data
 @Entity
 @NoArgsConstructor
@@ -65,7 +65,7 @@ As I'm not completely cruel, here as some helpers:
 
 * `findById` returns an `Optional`, we will go into more details on these later, but you can use this to your
 advantage with queries like: 
-```
+```java
 employeeRepository.findById(id)
                   .map(foundEmployee -> { // do some thing })
                   .orElseGet(() -> // return new Employee);           
@@ -80,7 +80,7 @@ specified type in the `Optional<T>` through the `orElseGet` call.
 * Advisors can provide a means of neatly handling exceptions thrown out of controllers. Such and example may 
 look like:
 
-```
+```java
 package demo.controllers.advice;
 
 import demo.models.exceptions.EmployeeNotFoundException;
@@ -104,7 +104,7 @@ class EmployeeControllerAdvice {
 
 * URL path variables can be acquired easily through an annotation, e.g.:
 
-```
+```java
     @GetMapping("/{id}")
     Employee getEmployee(@PathVariable Long id) throws EmployeeNotFoundException { ... }
 ```
