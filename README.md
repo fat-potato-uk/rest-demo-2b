@@ -82,6 +82,29 @@ to honour the passed in value.
 
 As I'm not completely cruel, here as some helpers:
 
+* You will need to use the following annotations/signatures for your controller:
+
+```java
+@RestController
+@RequestMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE, value = "/employees")
+class EmployeeController {
+    @GetMapping("")
+    List<Employee> all() { ... }
+    
+    @PostMapping("")
+    Employee newEmployee(@RequestBody Employee newEmployee) { ... }
+    
+    @GetMapping("/{id}")
+    Employee getEmployee(@PathVariable Long id) throws EmployeeNotFoundException { ... }
+    
+    @PutMapping("/{id}")
+    Employee replaceOrCreateEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) { ... }
+    
+    @DeleteMapping("/{id}")
+    void deleteEmployee(@PathVariable Long id) { ... }
+}
+```
+
 * `findById` returns an `Optional`, we will go into more details on these later, but you can use this to your
 advantage with queries like: 
 ```java
