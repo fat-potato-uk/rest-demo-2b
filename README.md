@@ -27,6 +27,17 @@ List<Employee> all() {
 }
 ```
 
+```java
+@Service
+public class EmployeeManager {
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
+    public List<Employee> getAll() {
+        return employeeRepository.findAll();
+    }
+```
+
 For this challenge there will be less of a walk through, more of an independent struggle. There are a few 
 pointers however. Firstly, a gotcha with regard to the previously created `Employee` entity. It will now
 need to resemble something more like this:
