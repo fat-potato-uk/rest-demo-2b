@@ -18,12 +18,18 @@ but in general it helps testing (and the following challenges).
 For example:
  
 ```java
-@Autowired
-private EmployeeManager employeeManager;
+@RestController
+@RequestMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE, value = "/employees")
+class EmployeeController {
 
-@GetMapping("")
-List<Employee> all() {
-    return employeeManager.getAll();
+    @Autowired
+    private EmployeeManager employeeManager;
+    
+    @GetMapping("")
+    List<Employee> all() {
+        return employeeManager.getAll();
+    }
+...
 }
 ```
 
@@ -36,6 +42,8 @@ public class EmployeeManager {
     public List<Employee> getAll() {
         return employeeRepository.findAll();
     }
+    ...
+}
 ```
 
 For this challenge there will be less of a walk through, more of an independent struggle. There are a few 
