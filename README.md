@@ -18,6 +18,10 @@ but in general it helps testing (and the following challenges).
 For example:
  
 ```java
+package demo.controllers;
+
+...
+
 @RestController
 @RequestMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE, value = "/employees")
 class EmployeeController {
@@ -34,6 +38,10 @@ class EmployeeController {
 ```
 
 ```java
+package demo.managers;
+
+...
+
 @Service
 public class EmployeeManager {
     @Autowired
